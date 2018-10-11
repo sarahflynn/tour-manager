@@ -62,6 +62,14 @@ describe('tours and stops', () => {
             .then(res => {
                 expect(res.body).toEqual(createdTours);
             })
+    })
+    
+    it('gets a tour by id', () => {
+        return request(app)
+            .get(`/api/tours/${createdTours[0]._id}`)
+            .then(res => {
+                expect(res.body).toEqual(createdTours);
+            })
     });
 
 
