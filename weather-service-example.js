@@ -1,5 +1,6 @@
-const request = require('superagent');
+require('dotenv').config();
 const apiKey = process.env.WU_API_KEY;
+const request = require('superagent');
 
 if(!apiKey) {
     console.log('No API key present!');
