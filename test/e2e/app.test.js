@@ -73,12 +73,7 @@ describe('tours and stops', () => {
     });
 
     it('adds a stop to a tour by id', () => {
-        const stop = {
-            location: {
-                zip: 97205
-            },
-            attendance: 5000
-        }
+        const stop = { zip: 97205, attendance: 500 }
         return request(app)
             .post(`/api/tours/${createdTours[0]._id}`)
             .send(stop)
