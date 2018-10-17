@@ -58,7 +58,7 @@ describe('tours and stops', () => {
             .get('/api/tours')
             .then(res => {
                 expect(res.body).toEqual(createdTours);
-            })
+            });
     })
     
     it('gets a tour by id', () => {
@@ -66,7 +66,7 @@ describe('tours and stops', () => {
             .get(`/api/tours/${createdTours[0]._id}`)
             .then(res => {
                 expect(res.body).toEqual(createdTours[0]);
-            })
+            });
     });
 
     it('adds a stop to a tour by id', () => {
@@ -83,7 +83,23 @@ describe('tours and stops', () => {
                     },
                     weather: expect.any(Object),
                 });
-            })
+            });
+    });
+
+    it('deletes a stop by id', () => {
+        return request(app)
+            .post(`/api/tours/${createdTours[0]._id}/stops`)
+            .send({ zip: 97205, stop: { attendance: 500} })
+                .then(res => {
+                    const tourId = res.body._id;
+                    const stopId = res.body.stops[0]._id;
+                    return request(app)
+                        .delete(`/api/tours/${tourId}/stops/${stopId}`)
+                        .then(res => {
+                            expect(res.body.stops.length).toEqual(0);
+                        });
+
+                });
     });
 
 
