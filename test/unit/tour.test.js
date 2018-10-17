@@ -19,6 +19,7 @@ describe('Tour model', () => {
         const tour = new Tour(data);
         const jsonTour = tour.toJSON();
         jsonTour.stops.forEach(stop => { delete stop._id })
+        
         expect(jsonTour.launchDate).toBeTruthy();
         expect(jsonTour).toEqual({ ...data, _id: expect.any(Object), launchDate: jsonTour.launchDate });
     });
@@ -37,6 +38,7 @@ describe('Tour model', () => {
         });
 
         const errors = getErrors(tour.validateSync(), 1);
+        
         expect(errors.title.properties.message).toEqual('Path `title` is required.')
         expect(errors.title.kind).toEqual('required')
     });
@@ -47,6 +49,7 @@ describe('Tour model', () => {
             activities: ['circus3', 'rides3', 'music3']
         });
         const jsonTour = tour.toJSON();
+        
         expect(jsonTour.launchDate).toBeTruthy();
         expect(jsonTour).toEqual({ title: 'California', activities: ['circus3', 'rides3', 'music3'], _id: expect.any(Object), launchDate: jsonTour.launchDate, stops: [] });
     });

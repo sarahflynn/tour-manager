@@ -12,8 +12,7 @@ describe('tours and stops', () => {
             title: 'Washington',
             launchDate: '2018-11-11T20:08:09.052Z'
 
-        }
-    ];
+        }];
     
     let createdTours;
 
@@ -59,7 +58,7 @@ describe('tours and stops', () => {
             .then(res => {
                 expect(res.body).toEqual(createdTours);
             });
-    })
+    });
     
     it('gets a tour by id', () => {
         return request(app)
@@ -98,7 +97,6 @@ describe('tours and stops', () => {
                         .then(res => {
                             expect(res.body.stops.length).toEqual(0);
                         });
-
                 });
     });
 
@@ -116,6 +114,5 @@ describe('tours and stops', () => {
                                 expect(res.body.stops[0].attendance).toEqual(1000)
                             });
                 });
-        
     });
 });
