@@ -110,7 +110,7 @@ describe('tours and stops', () => {
                     const tourId = res.body._id;
                     const stopId = res.body.stops[0]._id;
                     return request(app)
-                        .post(`api/tours/${tourId}/stops/${stopId}/attendance`)
+                        .post(`/api/tours/${tourId}/stops/${stopId}/attendance`)
                         .send({ attendance: 1000 })
                             .then(res => {
                                 expect(res.body.stops[0].attendance).toEqual(1000)
