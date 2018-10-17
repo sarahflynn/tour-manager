@@ -32,6 +32,7 @@
     "eslint": "^5.6.1",
     "jest": "^23.6.0",
     "jest-nyan-reporter": "^1.0.2",
+    "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
     "supertest": "^3.3.0"
   }

@@ -16,5 +16,22 @@ describe('get weather middleware', () => {
         };
 
         getWeather(req, null, next);
-    })
+    });
+
+    it('calls returns an error when provided with an invalid zip', done => {
+        const req = { body: { zip: 999999 } };
+        
+        let called = false;
+        let error;
+        
+        const next = err => {
+            called = true;
+            error = err;
+            expect(called).toBeTruthy();
+            expect(error.message).toEqual('Cannot read property \'0\' of undefined');
+            done();
+        };
+
+        getWeather(req, null, next);
+    });
 });
