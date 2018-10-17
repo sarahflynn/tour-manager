@@ -6,12 +6,10 @@ describe('tours and stops', () => {
     let tours = [
         {
             title: 'Oregon',
-            activities: ['circus', 'rides', 'music'],
             launchDate: '2018-10-11T20:08:09.052Z'
         },
         {
             title: 'Washington',
-            activities: ['circus2', 'rides2', 'music2'],
             launchDate: '2018-11-11T20:08:09.052Z'
 
         }
@@ -41,7 +39,6 @@ describe('tours and stops', () => {
             .post('/api/tours')
             .send({
                 title: 'California',
-                activities: ['circus3', 'rides3', 'music3'],
                 launchDate: '2018-10-11T20:08:09.052Z'
             })
             .then(res => {
@@ -49,9 +46,9 @@ describe('tours and stops', () => {
                     _id: expect.any(String),
                     __v: expect.any(Number),
                     title: 'California',
-                    activities: ['circus3', 'rides3', 'music3'],
                     launchDate: '2018-10-11T20:08:09.052Z',
-                    stops: []
+                    stops: [],
+                    activities: []
                 });
             });
     });
@@ -73,12 +70,19 @@ describe('tours and stops', () => {
     });
 
     it('adds a stop to a tour by id', () => {
-        const stop = { zip: 97205, attendance: 500 }
         return request(app)
-            .post(`/api/tours/${createdTours[0]._id}`)
-            .send(stop)
+            .post(`/api/tours/${createdTours[0]._id}/stops`)
+            .send({ zip: 97205, stop: { attendance: 500} })
             .then(res => {
-                expect(res.body).toContainEqual(stop);
+                expect(res.body.stops).toContainEqual({
+                    _id: expect.any(String),
+                    attendance: 500,
+                    location: {
+                        city: 'Portland',
+                        state: 'OR'
+                    },
+                    weather: expect.any(Object),
+                });
             })
     });
 
