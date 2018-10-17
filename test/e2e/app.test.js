@@ -102,5 +102,20 @@ describe('tours and stops', () => {
                 });
     });
 
-
+    it('updates attendance at a stop', () => {
+        return request(app)
+            .post(`/api/tours/${createdTours[0]._id}/stops`)
+            .send({ zip: 97205, stop: {}})
+                .then(res => {
+                    const tourId = res.body._id;
+                    const stopId = res.body.stops[0]._id;
+                    return request(app)
+                        .post(`api/tours/${tourId}/stops/${stopId}/attendance`)
+                        .send({ attendance: 1000 })
+                            .then(res => {
+                                expect(res.body.stops[0].attendance).toEqual(1000)
+                            });
+                });
+        
+    });
 });
